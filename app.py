@@ -54,37 +54,3 @@ def video_feed():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-```
-
-Press `Ctrl+S`
-
----
-
-### Thing 2 — Create `Procfile`
-
-In VS Code Explorer left panel:
-1. Right click `face_detection_app` folder
-2. Click **New File**
-3. Type: `Procfile`
-4. Press Enter
-5. Type inside:
-```
-web: gunicorn app:app
-```
-6. Press `Ctrl+S`
-
----
-
-### Thing 3 — Create `.gitignore`
-
-In VS Code Explorer left panel:
-1. Right click `face_detection_app` folder
-2. Click **New File**
-3. Type: `.gitignore`
-4. Press Enter
-5. Paste inside:
-```
-venv/
-__pycache__/
-*.pyc
-runs/
