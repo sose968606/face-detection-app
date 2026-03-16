@@ -4,20 +4,24 @@ import cv2
 import numpy as np
 import os
 
+os.environ['YOLO_CONFIG_DIR'] = '/tmp/Ultralytics'
+
 app = Flask(__name__)
 model = YOLO("best.pt")
 
 def create_test_frame():
     img = np.zeros((480, 640, 3), dtype=np.uint8)
     img[:] = (50, 50, 50)
-    cv2.putText(img, "YOLO Detection Ready", (120, 240),
-                cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
+    cv2.putText(img, "YOLO Detection Ready",
+                (100, 240),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                1, (255, 255, 255), 2)
     return img
 
 def generate_frames():
     if os.path.exists("Akash.jpg"):
         frame = cv2.imread("Akash.jpg")
-        print("Akash.jpg loaded!")
+        print("Loaded Akash.jpg!")
     else:
         frame = create_test_frame()
         print("Using test frame!")
@@ -58,5 +62,16 @@ def video_feed():
 
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 10000))
     app.run(host='0.0.0.0', port=port)
+```
+
+Press `Ctrl+S`
+
+---
+
+## Fix — Update `Procfile`
+
+Click `Procfile` in VS Code → delete all → paste:
+```
+web: gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 app:app
